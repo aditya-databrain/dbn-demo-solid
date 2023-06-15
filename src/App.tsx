@@ -1,13 +1,20 @@
 import type { Component } from "solid-js";
-import "dbn-ui-test-1/web";
+import "@databrainhq/plugin/web";
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "dbn-dashboard": any;
+      "dbn-metric": any;
+    }
+  }
+}
 
 const App: Component = () => {
-  return (
-    <dbn-dashboard
-      token="f2834487-d196-463c-9a57-9e02f78c7dda"
-      dashboardId="dev-orders"
-    />
-  );
+  const urlParams = new URLSearchParams(location.search);
+  const token = urlParams.get("token");
+  const dashboardId = urlParams.get("dashboardId");
+  return <dbn-dashboard token={token} dashboardId={dashboardId} />;
 };
 
 export default App;
